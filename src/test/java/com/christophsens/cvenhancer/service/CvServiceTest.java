@@ -1,11 +1,12 @@
 package com.christophsens.cvenhancer.service;
 
 import com.christophsens.cvenhancer.dto.CvVacancyDto;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.model.Generation;
@@ -17,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class CvServiceTest {
 
     @Mock
@@ -25,15 +27,9 @@ class CvServiceTest {
     @InjectMocks
     private CvService cvService;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
-
     private ChatResponse createMockChatResponse(String content) {
-        Generation generation = new Generation(content);
-        ChatResponse response = new ChatResponse(List.of(generation));
-        return response;
+        Generation generation = new Generation(new AssistantMessage(content));
+        return new ChatResponse(List.of(generation));
     }
 
     @Test

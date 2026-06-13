@@ -22,21 +22,26 @@ public class CvService {
 
     public String translateCv(String cv, String languageCode, String countryCode) {
         ChatResponse response = chatModel.call(TranslationPrompt.getPrompt(cv, languageCode, countryCode));
-        return response.getResult().getOutput().getContent();
+        return extractContent(response);
     }
 
     public String improveCv(String cv) {
         ChatResponse response = chatModel.call(ImprovePrompt.getPrompt(cv));
-        return response.getResult().getOutput().getContent();
+        return extractContent(response);
     }
 
     public String compareCvAndVacancay(CvVacancyDto dto) {
         ChatResponse response = chatModel.call(CompareVacancyPrompt.getPrompt(dto));
-        return response.getResult().getOutput().getContent();
+        return extractContent(response);
     }
 
     public String createCoverLetter(CvVacancyDto dto) {
         ChatResponse response = chatModel.call(CreateCoverLetterPrompt.getPrompt(dto));
-        return response.getResult().getOutput().getContent();
+        return extractContent(response);
+    }
+
+    private String extractContent(ChatResponse response) {
+        return response.getResult().getOutput().getText();
+
     }
 }

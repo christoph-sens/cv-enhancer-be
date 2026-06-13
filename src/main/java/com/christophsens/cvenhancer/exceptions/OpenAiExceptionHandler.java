@@ -1,20 +1,17 @@
 package com.christophsens.cvenhancer.exceptions;
 
-import org.springframework.ai.openai.api.common.OpenAiApiException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.reactive.result.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestControllerAdvice
-public class OpenAiExceptionHandler extends ResponseEntityExceptionHandler {
-    public static final String OPEN_AI_CLIENT_RAISED_EXCEPTION = "Open AI client raised exception";
+public class OpenAiExceptionHandler {
 
-    @ExceptionHandler(OpenAiApiException.class)
-    ProblemDetail handleOpenAiHttpException(OpenAiApiException ex) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
-        problemDetail.setTitle(OPEN_AI_CLIENT_RAISED_EXCEPTION);
+    @ExceptionHandler(ResponseStatusException.class)
+    ProblemDetail handleResponseStatusException(ResponseStatusException ex) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(ex.getStatusCode(), ex.getReason());
+        problemDetail.setTitle(ex.getStatusCode().toString());
         return problemDetail;
     }
 }
