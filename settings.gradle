@@ -19,4 +19,10 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "cvenhancer"
+rootProject.name = 'cv-enhancer-be'
+
+include 'model'
+include 'application'
+include 'adapter-in-web'
+include 'adapter-out'
+include 'bootstrap'

@@ -1,0 +1,11 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+dependencies {
+    implementation project(':model')
+
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    testImplementation 'io.mockk:mockk:1.14.2'
+    testImplementation 'org.assertj:assertj-core:3.27.3'
+}
