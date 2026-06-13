@@ -17,16 +17,6 @@ class LocaleValueObject(
     companion object {
         private val isoLanguages: Set<String> = Locale.getISOLanguages().toSet()
         private val isoCountries: Set<String> = Locale.getISOCountries().toSet()
-
-        /*@JvmStatic
-        fun isValidIsoLanguage(value: String): Boolean {
-            return isoLanguages.contains(value)
-        }
-
-        @JvmStatic
-        fun isValidIsoCountry(value: String): Boolean {
-            return isoCountries.contains(value)
-        }*/
     }
 
     private fun isValidIsoLanguage(value: String): Boolean = isoLanguages.contains(value)
