@@ -1,10 +1,14 @@
-plugins { 
-    kotlin("jvm")   
-} 
+plugins {
+    alias(libs.plugins.kotlin.spring)
+}
 
 dependencies {
     implementation(project(":application"))
-    implementation('org.springframework.boot:spring-boot-starter')
-    
-    testImplementation(kotlin("test"))
+    implementation(project(":model"))
+
+    implementation(platform(libs.spring.boot.bom))
+    implementation(libs.spring.context)
+
+    implementation(platform(libs.spring.ai.bom))
+    implementation(libs.spring.ai.starter.openai)
 }

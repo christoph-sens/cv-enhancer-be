@@ -1,14 +1,21 @@
 plugins {
-    kotlin("jvm")
-    id("org.jetbrains.kotlin.plugin.spring") version "1.9"
-} 
+    alias(libs.plugins.kotlin.spring)
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency.management)
+}
 
-dependencies { 
-    implementation(project(":application"))  
-    implementation(project(':model'))
+dependencies {
+    implementation(project(":model"))
+    implementation(project(":application"))
+    implementation(project(":adapter-in-web"))
+    implementation(project(":adapter-out"))
 
-    implementation(platform("org.springframework.boot:spring-boot-dependencies:4.0.1"))
-    implementation('org.springframework.boot:spring-boot-starter-web')
-    
-    testImplementation(kotlin("test"))
+    implementation(libs.spring.boot.starter)
+    implementation(libs.spring.boot.starter.webflux)
+
+    testImplementation(libs.spring.boot.starter.webflux.test)
+}
+
+tasks.named<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
+    archiveFileName.set("cv-enhancer-be.jar")
 }
