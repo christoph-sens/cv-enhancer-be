@@ -19,7 +19,6 @@ dependencies {
     testImplementation(libs.spring.boot.starter.webflux.test)
 
     // TEST ONLY (dependency review): known critical CVE-2022-42889 and a GPL-licensed driver.
-    implementation("org.apache.commons:commons-text:1.9")
     runtimeOnly("com.mysql:mysql-connector-j:9.1.0")
 }
 
