@@ -1,4 +1,4 @@
-FROM gradle:9.5.1-jdk25 AS build
+FROM gradle:9.7.1-jdk25 AS build
 WORKDIR /app
 COPY . /app/.
 RUN ./gradlew :bootstrap:bootJar --no-daemon
