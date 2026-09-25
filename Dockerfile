@@ -1,12 +1,20 @@
+FROM eclipse-temurin:25-jre AS runtime
+WORKDIR /app
+RUN groupadd --system app && useradd --system --gid app --no-create-home app
+USER app
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
 FROM gradle:9.7.1-jdk25 AS build
 WORKDIR /app
 COPY . /app/.
 RUN ./gradlew :bootstrap:bootJar --no-daemon
 
-FROM eclipse-temurin:25-jre
-WORKDIR /app
-RUN groupadd --system app && useradd --system --gid app --no-create-home app
+# Used by CI: takes the boot jar Gradle has already built and tested from the build context "app"
+# (docker build --target prebuilt --build-context app=bootstrap/build/libs .) instead of compiling again.
+FROM runtime AS prebuilt
+COPY --from=app cv-enhancer-be.jar app.jar
+
+# Default target: self-contained build.
+FROM runtime
 COPY --from=build /app/bootstrap/build/libs/*.jar app.jar
-USER app
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
