@@ -4,6 +4,9 @@ plugins {
     alias(libs.plugins.spring.dependency.management)
 }
 
+// The dependency-management plugin enforces the Boot BOM and would override the root-level Tomcat pin.
+extra["tomcat.version"] = libs.versions.tomcat.get()
+
 dependencies {
     implementation(project(":model"))
     implementation(project(":application"))
