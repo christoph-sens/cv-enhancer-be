@@ -4,8 +4,10 @@ plugins {
     alias(libs.plugins.spring.dependency.management)
 }
 
-// The dependency-management plugin enforces the Boot BOM and would override the root-level Tomcat pin.
+// The dependency-management plugin enforces the Boot BOM and would override the root-level Tomcat and Jackson pins.
 extra["tomcat.version"] = libs.versions.tomcat.get()
+extra["jackson-bom.version"] = libs.versions.jackson3.get()
+extra["jackson-2-bom.version"] = libs.versions.jackson2.get()
 
 dependencies {
     implementation(project(":model"))
