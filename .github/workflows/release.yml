@@ -16,7 +16,7 @@ concurrency:
 jobs:
   # Shared release, see https://github.com/christoph-sens/ci-workflows
   release:
-    uses: christoph-sens/ci-workflows/.github/workflows/container-release.yml@d5fd261715166b1b116e2530341dd8c70895e383 # v1.4.0
+    uses: christoph-sens/ci-workflows/.github/workflows/container-release.yml@cb42cad2581dbfd1f6b906026f8a95a4501b9374 # v1.5.1
     permissions:
       contents: write          # GitHub release
       packages: write          # push to GHCR
